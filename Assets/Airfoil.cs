@@ -25,10 +25,10 @@ public class Airfoil : MonoBehaviour
     // Update is called once per frame
     public void DrawFoilShape()
     {
-        Vector3 point1 = new Vector3(-span / 2, 0, avgChord / 2 + offset);
-        Vector3 point2 = new Vector3(span / 2, 0, avgChord / 2 + offset);
-        Vector3 point3 = new Vector3(span / 2, 0, -avgChord / 2 + offset);
-        Vector3 point4 = new Vector3(-span / 2, 0, -avgChord / 2 + offset);
+        Vector3 point1 = new Vector3(-span/2 + offset, 0, avgChord/2);
+        Vector3 point2 = new Vector3(span/2 + offset, 0, avgChord/2);
+        Vector3 point3 = new Vector3(span/2 + offset, 0, -avgChord/2);
+        Vector3 point4 = new Vector3(-span/2 + offset, 0, -avgChord/2);
         
         point1 = transform.TransformPoint(point1);
         point2 = transform.TransformPoint(point2);
