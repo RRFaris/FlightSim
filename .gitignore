@@ -98,3 +98,11 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 .idea/
+
+# Large downloadable asset packages
+/Assets/TerrainSampleAssets/
+/Assets/TerrainSampleAssets.meta
+/Assets/HDRPDefaultResources/
+/Assets/HDRPDefaultResources.meta
+/Assets/TutorialInfo/
+/Assets/TutorialInfo.meta
