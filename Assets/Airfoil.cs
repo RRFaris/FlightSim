@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Airfoil : MonoBehaviour
@@ -7,16 +8,12 @@ public class Airfoil : MonoBehaviour
     public float offset = 2;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void applyLift(float airDensity, Vector3 localVelocity)
     {
         
     }
-
-    void Update()
-    {
-        
-    }
-
+    
+    
     private void OnDrawGizmos()
     {
         DrawFoilShape();
