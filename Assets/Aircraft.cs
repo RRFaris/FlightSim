@@ -43,7 +43,7 @@ public class Airplane : MonoBehaviour
         
         foreach (Airfoil airfoil in airfoils)
         {
-            airfoil.applyLift(airDensity, localVelocity);
+            airfoil.applyLift(main, airDensity, localVelocity);
         }
     }
 

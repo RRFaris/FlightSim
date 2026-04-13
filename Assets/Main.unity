@@ -815,13 +815,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157717833}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.034204748, y: -0, z: 0.0000000037252899, w: 0.99941486}
+  m_LocalRotation: {x: -0.023298033, y: 0, z: 0, w: 0.99972856}
   m_LocalPosition: {x: -0.9700035, y: 1.1289876, z: -3.8206787}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 951115230}
-  m_LocalEulerAnglesHint: {x: -3.92, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.67, y: 0, z: 0}
 --- !u!114 &1157717835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,7 +1474,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 10, y: 10, z: 78.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1729,6 +1729,7 @@ GameObject:
   - component: {fileID: 2106997934}
   - component: {fileID: 2106997933}
   - component: {fileID: 2106997932}
+  - component: {fileID: 2106997935}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1803,13 +1804,57 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106997931}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07041872, y: -0.02543367, z: 0.0017960455, w: 0.99719167}
-  m_LocalPosition: {x: 1.2614107, y: 1.2199783, z: -7.9546857}
+  m_LocalRotation: {x: -0.05359199, y: 0.14866252, z: -0.0072792945, w: -0.9874079}
+  m_LocalPosition: {x: 1.75, y: 6.1500006, z: -17.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1542040165838394305}
+  m_LocalEulerAnglesHint: {x: 6.2, y: -17.129, z: -0.09}
+--- !u!114 &2106997935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106997931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &2130555653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,8 +1967,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2174603036811250043}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 4.45, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -1.4973431, y: 4.45, z: 0.41346288}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1931,8 +1976,9 @@ Transform:
   - {fileID: 1797127932}
   - {fileID: 579194089}
   - {fileID: 1336014918}
+  - {fileID: 2106997934}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &1556169316356291934
 Transform:
   m_ObjectHideFlags: 0
@@ -2863,7 +2909,6 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2106997934}
   - {fileID: 246070866}
   - {fileID: 1917319576}
   - {fileID: 1542040165838394305}
