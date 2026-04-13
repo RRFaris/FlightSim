@@ -50,7 +50,7 @@ public class Airplane : MonoBehaviour
     public void CalculateState()
     {
         // Calculates plane's local velocity 
-        localVelocity = main.transform.InverseTransformDirection(main.velocity);
+        localVelocity = main.transform.InverseTransformDirection(main.linearVelocity);
     }
     
     public float CalculateAirDensity()

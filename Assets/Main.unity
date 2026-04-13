@@ -1718,7 +1718,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Engine
   main: {fileID: 2174603036811250044}
   engineForce: 1800
-  throttle: 0
 --- !u!1 &2106997931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,6 +2062,23 @@ MonoBehaviour:
   rightWheel: {fileID: 1319212256}
   noseWheel: {fileID: 1507812460}
   rollingResistance: 0
+  airfoils:
+  - {fileID: 497107441}
+  - {fileID: 2130555655}
+  - {fileID: 1124448708}
+  - {fileID: 1460936399}
+  - {fileID: 550413907}
+  - {fileID: 1870284770}
+  - {fileID: 671580231}
+  - {fileID: 2049028502}
+  - {fileID: 1157717835}
+  - {fileID: 129503327}
+  - {fileID: 1206039265}
+  temperature: 288.15
+  specificGasConstant: 287
+  pressure: 101325
+  airDensity: 0
+  localVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &2675071247575040461
 GameObject:
   m_ObjectHideFlags: 0
