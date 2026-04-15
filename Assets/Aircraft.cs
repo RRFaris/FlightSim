@@ -51,6 +51,8 @@ public class Airplane : MonoBehaviour
     {
         // Calculates plane's local velocity 
         localVelocity = main.transform.InverseTransformDirection(main.linearVelocity);
+        // Calculates the angle of attack
+        
     }
     
     public float CalculateAirDensity()
