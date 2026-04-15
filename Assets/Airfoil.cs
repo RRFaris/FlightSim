@@ -8,15 +8,20 @@ public class Airfoil : MonoBehaviour
     public float offset = 2;
 
     private float area;
+    public AnimationCurve liftCurve;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void applyLift(Rigidbody main, float airDensity, Vector3 localVelocity)
     {
+        float angleOfAttack = Mathf.Atan2(-localVelocity.y, localVelocity.z) * Mathf.Rad2Deg;
+        float liftCoefficient = liftCurve.Evaluate(angleOfAttack);
+        
         area = avgChord * span;
-        double liftMagnitude = Math.Pow(localVelocity.z, 2) * (1.60 * airDensity * 0.5 * area);
-        Vector3 liftVector = Vector3.up * (float)liftMagnitude;
-        main.AddForceAtPosition(liftVector, transform.position);
+        double liftMagnitude = Math.Pow(localVelocity.z, 2) * (liftCoefficient * airDensity * 0.5 * area);
+        Vector3 liftVector = transform.up * (float)liftMagnitude;
+        main.AddForceAtPosition(-liftVector, transform.position + (transform.right * offset));
         Debug.DrawRay(transform.position + (transform.right * offset),liftVector, Color.red);
+        
     }
     
     
