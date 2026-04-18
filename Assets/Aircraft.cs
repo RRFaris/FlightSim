@@ -43,7 +43,9 @@ public class Airplane : MonoBehaviour
         
         foreach (Airfoil airfoil in airfoils)
         {
-            airfoil.applyLift(main, airDensity, localVelocity);
+            Vector3 wingWorldVelocity = main.GetPointVelocity(airfoil.transform.position);
+            Vector3 wingLocalVelocity = airfoil.transform.InverseTransformDirection(wingWorldVelocity);
+            airfoil.applyLift(main, airDensity, wingLocalVelocity);
         }
     }
 
