@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Airfoil : MonoBehaviour
 {
+    public Vector3 velocity;
+    public Vector3 localVelocity;
+    public float angleOfAttack;
+    
     public float avgChord = 1;
     public float span = 2;
     public float offset = 2;
@@ -10,11 +14,21 @@ public class Airfoil : MonoBehaviour
     private float area;
     public AnimationCurve liftCurve;
     
+    [Range(-1, 1)] public float controlInput = 0;
+    public float maxControlDeflection = 15f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void applyLift(Rigidbody main, float airDensity, Vector3 localVelocity)
     {
-        float angleOfAttack = Mathf.Atan2(-localVelocity.y, localVelocity.z) * Mathf.Rad2Deg;
-        float liftCoefficient = liftCurve.Evaluate(angleOfAttack);
+        CalculateState(main);
+        
+        // Guard against divide by 0 error when using .normalize
+        if (localVelocity.sqrMagnitude < 0.1f) return;
+        
+        // float liftCoefficient = liftCurve.Evaluate(angleOfAttack);
+        
+        float effectiveAoA = angleOfAttack + (controlInput * maxControlDeflection);
+        float liftCoefficient = liftCurve.Evaluate(effectiveAoA);
         
         area = avgChord * span;
         double liftMagnitude = localVelocity.sqrMagnitude * (liftCoefficient * airDensity * 0.5 * area);
@@ -60,5 +74,18 @@ public class Airfoil : MonoBehaviour
         Gizmos.DrawLine(point3, point4);
         Gizmos.DrawLine(point4, point1);
         Gizmos.DrawLine(point2, point4);
+    }
+
+    public void CalculateState(Rigidbody main)
+    {
+        var invRotation = Quaternion.Inverse(transform.rotation);
+        velocity = main.GetPointVelocity(transform.position);
+        localVelocity = invRotation * velocity;
+        CalculateAngleOfAttack();
+    }
+
+    public void CalculateAngleOfAttack()
+    {
+        angleOfAttack = Mathf.Atan2(-localVelocity.y, localVelocity.z) * Mathf.Rad2Deg;
     }
 }
