@@ -33,8 +33,11 @@ public class Airfoil : MonoBehaviour
         area = avgChord * span;
         double liftMagnitude = localVelocity.sqrMagnitude * (liftCoefficient * airDensity * 0.5 * area);
 
-        Vector3 localLiftDirection = Vector3.Cross(localVelocity, Vector3.right).normalized;
-        Vector3 liftVector = transform.TransformDirection(localLiftDirection) * (float)liftMagnitude;
+        // Vector3 localLiftDirection = Vector3.Cross(localVelocity, Vector3.right).normalized;
+        // Vector3 liftVector = transform.TransformDirection(localLiftDirection) * (float)liftMagnitude;
+        
+        Vector3 liftDirection = Vector3.Cross(velocity.normalized, transform.right);
+        Vector3 liftVector = liftDirection * (float)liftMagnitude;
         
         float dragCoefficient = 0.05f + Mathf.Abs(Mathf.Sin(angleOfAttack * Mathf.Deg2Rad)); 
         float dragMagnitude = localVelocity.sqrMagnitude * (dragCoefficient * airDensity * 0.5f * area);
