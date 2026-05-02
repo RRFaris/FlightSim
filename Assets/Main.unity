@@ -219,8 +219,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
-  avgChord: 0.68
-  span: 1.46
+  avgChord: 0
+  span: 0
   offset: 0
   liftCurve:
     serializedVersion: 2
@@ -1357,8 +1357,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
-  avgChord: 0.4
-  span: 1.7
+  avgChord: 0
+  span: 0
   offset: 0
   liftCurve:
     serializedVersion: 2
@@ -1811,7 +1811,7 @@ Transform:
   m_GameObject: {fileID: 1673236215}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.19, y: 1.2, z: 1.868871}
+  m_LocalPosition: {x: -0.965, y: 1.2, z: 1.868871}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2048,7 +2048,7 @@ Transform:
   m_GameObject: {fileID: 1870284768}
   serializedVersion: 2
   m_LocalRotation: {x: -0.04719122, y: 0.0010255967, z: 0.021703437, w: 0.99864954}
-  m_LocalPosition: {x: -0.96, y: 1.813, z: 0.232}
+  m_LocalPosition: {x: -0.965, y: 1.813, z: 0.232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2512,13 +2512,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100334535}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 1.27, z: 3.41}
+  m_LocalRotation: {x: -0.020069981, y: 0, z: 0, w: 0.9997986}
+  m_LocalPosition: {x: -0.965, y: 1.27, z: 3.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1336014918}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.3, y: 0, z: 0}
 --- !u!114 &2100334537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2918,7 +2918,7 @@ Transform:
   m_GameObject: {fileID: 2174603036811250043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.4973431, y: 1041.7, z: 0.41346288}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3023,7 +3023,7 @@ Rigidbody:
   m_Mass: 900
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 1.19, y: 1.2, z: 1.868871}
+  m_CenterOfMass: {x: -0.965, y: 1.2, z: 1.868871}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -3052,7 +3052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airplane
   main: {fileID: 2174603036811250044}
-  centerMass: {x: -0.965019, y: 1.2, z: 1.868871}
+  centerMassTransform: {fileID: 1673236216}
   engine: {fileID: 2100334537}
   throttle: 0
   leftWheel: {fileID: 403440270}

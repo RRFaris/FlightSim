@@ -3,7 +3,7 @@ using UnityEngine;
 public class Airplane : MonoBehaviour
 {
     public Rigidbody main;
-    public Vector3 centerMass;
+    public Transform centerMassTransform;
     public Engine engine;
 
     [Range(0, 1)] public float throttle;
@@ -27,7 +27,7 @@ public class Airplane : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        main.centerOfMass = centerMass;
+        main.centerOfMass = main.transform.InverseTransformPoint(centerMassTransform.position);
         airDensity = CalculateAirDensity();
         leftWheel.brakeTorque  = 0;
         rightWheel.brakeTorque = 0;
