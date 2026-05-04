@@ -14,6 +14,6 @@ public class Engine : MonoBehaviour
     {
         // main.AddForce(transform.forward * (engineForce * throttle), ForceMode.Force);
         // Adds force specifically where the engine is placed in the aircraft
-        main.AddForceAtPosition(transform.forward * (engineForce * thrust), transform.position);
+        main.AddForce(transform.forward * (engineForce * thrust), ForceMode.Force);
     }
 }
