@@ -57,10 +57,10 @@ public class Airplane : MonoBehaviour
         CalculateState();
         engine.ApplyThrust(throttle);
         
-        float tinyTorque = 0.0001f;
-        leftWheel.motorTorque = tinyTorque;
-        rightWheel.motorTorque = tinyTorque;
-        noseWheel.motorTorque = tinyTorque;
+        // float tinyTorque = 0.0001f;
+        // leftWheel.motorTorque = tinyTorque;
+        // rightWheel.motorTorque = tinyTorque;
+        // noseWheel.motorTorque = tinyTorque;
         // noseWheel.brakeTorque = 0;
         // rightWheel.brakeTorque = 0;
         // leftWheel.brakeTorque = 0;
