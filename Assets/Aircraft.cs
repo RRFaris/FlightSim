@@ -24,6 +24,9 @@ public class Airplane : MonoBehaviour
     public Vector3 localVelocity;
     public Vector3 velocity;
     
+    public Vector3 aircraftBodyArea; // cross-sectional area in X, Y, Z directions
+    public Vector3 cbd;              // drag coefficient for each axis
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,19 +35,24 @@ public class Airplane : MonoBehaviour
         leftWheel.brakeTorque  = 0;
         rightWheel.brakeTorque = 0;
         noseWheel.brakeTorque  = 0;
-        
-        // SetWheelForwardFriction(leftWheel,  0.3f);
-        // SetWheelForwardFriction(rightWheel, 0.3f);
-        // SetWheelForwardFriction(noseWheel,  0.3f);
     }
 
-    // void SetWheelForwardFriction(WheelCollider wheel, float stiffness)
-    // {
-    //     WheelFrictionCurve fwd = wheel.forwardFriction;
-    //     fwd.stiffness = stiffness;
-    //     wheel.forwardFriction = fwd;
-    // }
+    void ApplyBodyDrag()
+    {
+        float xDrag = 0;
+        float yDrag = 0;
+        float zDrag = 0;
 
+        if (localVelocity.x != 0)
+            xDrag = cbd.x * (0.5f * airDensity * (localVelocity.x * localVelocity.x) * aircraftBodyArea.x * (-localVelocity.x / Mathf.Abs(localVelocity.x)));
+        if (localVelocity.y != 0)
+            yDrag = cbd.y * (0.5f * airDensity * (localVelocity.y * localVelocity.y) * aircraftBodyArea.y * (-localVelocity.y / Mathf.Abs(localVelocity.y)));
+        if (localVelocity.z != 0)
+            zDrag = cbd.z * (0.5f * airDensity * (localVelocity.z * localVelocity.z) * aircraftBodyArea.z * (-localVelocity.z / Mathf.Abs(localVelocity.z)));
+
+        Vector3 drag = new Vector3(xDrag, yDrag, zDrag);
+        main.AddForce(transform.TransformVector(drag));
+    }
     
     // Update is called once per frame
     void Update()
@@ -56,14 +64,13 @@ public class Airplane : MonoBehaviour
     {
         CalculateState();
         engine.ApplyThrust(throttle);
+        ApplyBodyDrag();
         
-        // float tinyTorque = 0.0001f;
-        // leftWheel.motorTorque = tinyTorque;
-        // rightWheel.motorTorque = tinyTorque;
-        // noseWheel.motorTorque = tinyTorque;
-        // noseWheel.brakeTorque = 0;
-        // rightWheel.brakeTorque = 0;
-        // leftWheel.brakeTorque = 0;
+        float tinyTorque = 0.0001f;
+        leftWheel.motorTorque = tinyTorque;
+        rightWheel.motorTorque = tinyTorque;
+        noseWheel.motorTorque = tinyTorque;
+        
         
         foreach (Airfoil airfoil in airfoils)
         {
