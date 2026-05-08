@@ -17,6 +17,8 @@ public class Airfoil : MonoBehaviour
     [Range(-1, 1)] public float controlInput = 0;
     public float maxControlDeflection = 15f;
     
+    public float Cdv = 0.3f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void applyLift(Rigidbody main, float airDensity, Vector3 localVelocity)
     {
@@ -44,8 +46,20 @@ public class Airfoil : MonoBehaviour
         
         Vector3 dragVector = transform.TransformDirection(-localVelocity.normalized) * dragMagnitude;
         
-        main.AddForceAtPosition(liftVector + dragVector, transform.position + (transform.right * offset));
+        // main.AddForceAtPosition(liftVector + dragVector, transform.position + (transform.right * offset));
         Debug.DrawRay(transform.position + (transform.right * offset),liftVector, Color.red);
+        
+        // Calculate vertical drag
+        float verticalSpeed = localVelocity.y;
+        float verticalDrag = 0;
+        if (verticalSpeed != 0)
+            verticalDrag = Cdv * (0.5f * airDensity * (verticalSpeed * verticalSpeed)) * area * (-verticalSpeed / Mathf.Abs(verticalSpeed));
+
+        // Single AddForceAtPosition call with everything combined
+        main.AddForceAtPosition(
+            liftVector + dragVector + (transform.up * verticalDrag), 
+            transform.position + (transform.right * offset)
+        );
         
     }
     
