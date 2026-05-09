@@ -35,6 +35,10 @@ public class Airplane : MonoBehaviour
         leftWheel.brakeTorque  = 0;
         rightWheel.brakeTorque = 0;
         noseWheel.brakeTorque  = 0;
+        
+        // SetWheelForwardFriction(leftWheel,  0.3f);
+        // SetWheelForwardFriction(rightWheel, 0.3f);
+        // SetWheelForwardFriction(noseWheel,  0.3f);
     }
 
     void ApplyBodyDrag()
@@ -70,7 +74,9 @@ public class Airplane : MonoBehaviour
         leftWheel.motorTorque = tinyTorque;
         rightWheel.motorTorque = tinyTorque;
         noseWheel.motorTorque = tinyTorque;
-        
+        // noseWheel.brakeTorque = 0;
+        // rightWheel.brakeTorque = 0;
+        // leftWheel.brakeTorque = 0;
         
         foreach (Airfoil airfoil in airfoils)
         {
