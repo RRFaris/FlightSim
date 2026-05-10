@@ -6,12 +6,12 @@ public class PlayerInputManager : MonoBehaviour
     public bool isActive = true;
 
     [Header("Keyboard Throttle Settings")]
-    public KeyCode throttleUp   = KeyCode.LeftShift;
-    public KeyCode throttleDown = KeyCode.LeftControl;
+    public KeyCode throttleDown = KeyCode.S;
+    public KeyCode throttleUp   = KeyCode.W;
 
     [Header("Keyboard Control Surfaces")]
-    public KeyCode pitchUpKey   = KeyCode.S;
-    public KeyCode pitchDownKey = KeyCode.W;
+    public KeyCode pitchUpKey   = KeyCode.DownArrow;
+    public KeyCode pitchDownKey = KeyCode.UpArrow;
     public KeyCode rollLeftKey  = KeyCode.A;
     public KeyCode rollRightKey = KeyCode.D;
     public KeyCode yawLeftKey   = KeyCode.Q;
@@ -72,6 +72,8 @@ public class PlayerInputManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Pitch up pressed: " + Input.GetKey(pitchUpKey));
+            Debug.Log("Roll right pressed: " + Input.GetKey(rollRightKey));
             // --- Keyboard Fallback ---
             if (Input.GetKey(throttleUp))
                 throttle += Time.deltaTime * 0.3f;
