@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -221,7 +223,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &24929920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 2
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -1155,7 +1161,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 20
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &224406814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +1860,7 @@ GameObject:
   - component: {fileID: 349749496}
   - component: {fileID: 349749495}
   - component: {fileID: 349749497}
+  - component: {fileID: 349749498}
   m_Layer: 0
   m_Name: NewCessna
   m_TagString: Untagged
@@ -1869,7 +1878,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 900
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1894,8 +1903,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349749494}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 2.8, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.8, z: -1656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1904,7 +1913,7 @@ Transform:
   - {fileID: 1852531829}
   - {fileID: 162934434}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &349749497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1943,6 +1952,20 @@ MonoBehaviour:
   airDensity: 0
   localVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
+  aircraftBodyArea: {x: 1.5, y: 16, z: 1.2}
+  cbd: {x: 0.3, y: 0.5, z: 0.03}
+--- !u!114 &349749498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349749494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713dfc9e4a9bc4c1db4561e9f80c2d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JoystickDebugger
 --- !u!1 &380381189
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,6 +2435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 1
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -2470,7 +2495,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 28
+  maxDeflectionNegative: 23
+  Cdv: 0.3
 --- !u!1 &403161154
 GameObject:
   m_ObjectHideFlags: 0
@@ -4076,6 +4103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -4134,7 +4163,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &707900195
 GameObject:
   m_ObjectHideFlags: 0
@@ -4365,11 +4396,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
-  avgChord: 0
-  span: 0
+  avgChord: 0.74
+  span: 1.32
   offset: 0
   liftCurve:
     serializedVersion: 2
@@ -4386,17 +4419,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -17
       value: -1.5
-      inSlope: -0.042349726
-      outSlope: -0.042349726
-      tangentMode: 34
+      inSlope: -0.06396533
+      outSlope: -0.06396533
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.1767858
     - serializedVersion: 3
-      time: 1.3
+      time: 0
       value: 0
-      inSlope: 0.08875431
-      outSlope: 0.08875431
+      inSlope: 0.0882353
+      outSlope: 0.0882353
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -4404,11 +4437,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 17
       value: 1.5
-      inSlope: -0.035562634
-      outSlope: -0.035562634
-      tangentMode: 34
+      inSlope: -0.08369871
+      outSlope: -0.08369871
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.1333385
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 20
@@ -4423,7 +4456,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &783772919
 GameObject:
   m_ObjectHideFlags: 0
@@ -4468,6 +4503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 2
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -4526,7 +4563,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 20
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &789981806
 GameObject:
   m_ObjectHideFlags: 0
@@ -5223,6 +5262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -5281,7 +5322,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &1054620150
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,6 +5448,62 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 162934434}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1105353051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1105353053}
+  - component: {fileID: 1105353052}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1105353052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105353051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1435c6533a4456298e119ce4b9b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
+  airplane: {fileID: 349749497}
+  isActive: 1
+  throttleUp: 304
+  throttleDown: 306
+  pitchUpKey: 115
+  pitchDownKey: 119
+  rollLeftKey: 97
+  rollRightKey: 100
+  yawLeftKey: 113
+  yawRightKey: 101
+  brakeToggle: 98
+  flapsKey: 102
+--- !u!4 &1105353053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105353051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 2.87688, z: 3.03094}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162300795
 GameObject:
@@ -6511,6 +6610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -6569,7 +6670,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &1299520830
 GameObject:
   m_ObjectHideFlags: 0
@@ -6707,11 +6810,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 3
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
-  avgChord: 0
-  span: 0
+  avgChord: 0.4
+  span: 1.65
   offset: 0
   liftCurve:
     serializedVersion: 2
@@ -6728,17 +6833,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -17
       value: -1.5
-      inSlope: -0.042349726
-      outSlope: -0.042349726
-      tangentMode: 34
+      inSlope: -0.06396533
+      outSlope: -0.06396533
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.1767858
     - serializedVersion: 3
-      time: 1.3
+      time: 0
       value: 0
-      inSlope: 0.08875431
-      outSlope: 0.08875431
+      inSlope: 0.0882353
+      outSlope: 0.0882353
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -6746,11 +6851,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 17
       value: 1.5
-      inSlope: -0.035562634
-      outSlope: -0.035562634
-      tangentMode: 34
+      inSlope: -0.08369871
+      outSlope: -0.08369871
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.1333385
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 20
@@ -6765,7 +6870,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 24
+  maxDeflectionNegative: 24
+  Cdv: 0.3
 --- !u!1 &1319212254
 GameObject:
   m_ObjectHideFlags: 0
@@ -7960,7 +8067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Engine
   main: {fileID: 349749495}
-  engineForce: 4000
+  engineForce: 6500
 --- !u!1 &1507812458
 GameObject:
   m_ObjectHideFlags: 0
@@ -9726,6 +9833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -9784,7 +9893,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &1748701495
 GameObject:
   m_ObjectHideFlags: 0
@@ -10614,7 +10725,7 @@ Transform:
   m_GameObject: {fileID: 1917319572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -516}
+  m_LocalPosition: {x: 0, y: 0, z: -1112}
   m_LocalScale: {x: 10, y: 10, z: 111.92}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11793,6 +11904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8167bacc5ee1442db9523b015f590929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airfoil
+  airfoilType: 0
+  flapInput: 0
   velocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   angleOfAttack: 0
@@ -11851,7 +11964,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   controlInput: 0
-  maxControlDeflection: 15
+  maxDeflectionPositive: 15
+  maxDeflectionNegative: 15
+  Cdv: 0.3
 --- !u!1 &2087845499
 GameObject:
   m_ObjectHideFlags: 0
@@ -13358,3 +13473,4 @@ SceneRoots:
   - {fileID: 349749496}
   - {fileID: 1707598428}
   - {fileID: 1349805919}
+  - {fileID: 1105353053}
