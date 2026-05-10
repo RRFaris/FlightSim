@@ -1,8 +1,15 @@
 using System;
 using UnityEngine;
 
+public enum AirfoilType { none, elevator, aileron, rudder, flap }
+
 public class Airfoil : MonoBehaviour
 {
+    public AirfoilType airfoilType; 
+    
+    public float flapInput = 0f;
+
+    
     public Vector3 velocity;
     public Vector3 localVelocity;
     public float angleOfAttack;
@@ -15,7 +22,8 @@ public class Airfoil : MonoBehaviour
     public AnimationCurve liftCurve;
     
     [Range(-1, 1)] public float controlInput = 0;
-    public float maxControlDeflection = 15f;
+    public float maxDeflectionPositive = 15f;
+    public float maxDeflectionNegative = 15f;
     
     public float Cdv = 0.3f;
     
@@ -29,7 +37,10 @@ public class Airfoil : MonoBehaviour
         
         // float liftCoefficient = liftCurve.Evaluate(angleOfAttack);
         
-        float effectiveAoA = angleOfAttack + (controlInput * maxControlDeflection);
+        float deflection = controlInput > 0 
+            ? controlInput * maxDeflectionPositive 
+            : controlInput * maxDeflectionNegative;
+        float effectiveAoA = angleOfAttack + deflection + (flapInput * maxDeflectionPositive);
         float liftCoefficient = liftCurve.Evaluate(effectiveAoA);
         
         area = avgChord * span;
