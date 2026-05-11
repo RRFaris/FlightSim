@@ -18,19 +18,21 @@ public class PlayerInputManager : MonoBehaviour
     public KeyCode yawRightKey  = KeyCode.E;
 
     [Header("Other")]
-    public KeyCode brakeToggle = KeyCode.B;
-    public KeyCode flapsKey    = KeyCode.F;
+    public KeyCode brakeToggle         = KeyCode.B;
+    public KeyCode flapsKey            = KeyCode.F;
+    public KeyCode flapsJoystickButton = KeyCode.JoystickButton4;
 
-    private float throttle = 0f;
-    private float flaps    = 0f;
-    private bool brakesOn  = false;
-
-    // Tracks whether a HOTAS is connected
+    private float throttle      = 0f;
+    private float flaps         = 0f;
+    private float flapTarget    = 0f;
+    private bool flapsDeployed  = false;
+    private bool brakesOn       = false;
     private bool hotasConnected = false;
+    private bool firstFrame     = true;
 
     void Start()
     {
-        hotasConnected = Input.GetJoystickNames().Length > 0 
+        hotasConnected = Input.GetJoystickNames().Length > 0
                          && Input.GetJoystickNames()[0] != "";
         if (hotasConnected)
             Debug.Log("HOTAS detected: " + Input.GetJoystickNames()[0]);
@@ -46,63 +48,51 @@ public class PlayerInputManager : MonoBehaviour
         float rollInput  = 0f;
         float yawInput   = 0f;
 
+        // --- HOTAS Input (runs when connected) ---
         if (hotasConnected)
         {
-            // --- HOTAS Input ---
-            pitchInput = -Input.GetAxis("Joystick Axis 2"); // stick forward/back
-            rollInput  = -Input.GetAxis("Joystick Axis 1"); // stick left/right
-            yawInput   = -Input.GetAxis("Joystick Axis 3"); // twist rudder
+            pitchInput = -Input.GetAxis("Joystick Axis 2");
+            rollInput  = -Input.GetAxis("Joystick Axis 1");
+            yawInput   = -Input.GetAxis("Joystick Axis 3");
 
-            // Throttle — remap from -1/1 to 0/1
             float rawThrottle = Input.GetAxis("Joystick Axis 4");
-            throttle = 1f - ((rawThrottle + 1f) / 2f);
-
-            // Brake button — button 0 is trigger on T-Flight HOTAS X
-            if (Input.GetKeyDown(KeyCode.JoystickButton0))
-            {
-                brakesOn = !brakesOn;
-                airplane.leftWheel.brakeTorque  = brakesOn ? 5000f : airplane.rollingResistance;
-                airplane.rightWheel.brakeTorque = brakesOn ? 5000f : airplane.rollingResistance;
-                airplane.noseWheel.brakeTorque  = brakesOn ? 5000f : airplane.rollingResistance;
-            }
-
-            // Flaps button — button 1 on T-Flight HOTAS X
-            float flapTarget = Input.GetKey(KeyCode.JoystickButton1) ? 1f : 0f;
-            flaps = Mathf.Lerp(flaps, flapTarget, Time.deltaTime / 2f);
+            if (Mathf.Abs(rawThrottle) > 0.01f)
+                throttle = (-rawThrottle + 1f) / 2f;
+            
+            // float rawThrottle = Input.GetAxis("Joystick Axis 4");
+            // throttle = (-rawThrottle + 1f) / 2f;
         }
-        else
+
+        // --- Keyboard (ALWAYS runs, works alongside HOTAS) ---
+        if (Input.GetKey(throttleUp))
+            throttle += Time.deltaTime * 0.3f;
+        if (Input.GetKey(throttleDown))
+            throttle -= Time.deltaTime * 0.3f;
+
+        if (Input.GetKey(pitchUpKey))   pitchInput = -1f;
+        if (Input.GetKey(pitchDownKey)) pitchInput = 1f;
+        if (Input.GetKey(rollRightKey)) rollInput  = -1f;
+        if (Input.GetKey(rollLeftKey))  rollInput  = 1f;
+        if (Input.GetKey(yawRightKey))  yawInput   = -1f;
+        if (Input.GetKey(yawLeftKey))   yawInput   = 1f;
+
+        // --- Brakes (always works) ---
+        if (Input.GetKeyDown(brakeToggle) || Input.GetKeyDown(KeyCode.JoystickButton0))
+            airplane.brakesOn = !airplane.brakesOn;
+
+        // --- Flaps toggle (always works) ---
+        if (Input.GetKeyDown(flapsKey) || Input.GetKeyDown(flapsJoystickButton))
         {
-            Debug.Log("Pitch up pressed: " + Input.GetKey(pitchUpKey));
-            Debug.Log("Roll right pressed: " + Input.GetKey(rollRightKey));
-            // --- Keyboard Fallback ---
-            if (Input.GetKey(throttleUp))
-                throttle += Time.deltaTime * 0.3f;
-            if (Input.GetKey(throttleDown))
-                throttle -= Time.deltaTime * 0.3f;
-
-            if (Input.GetKey(pitchUpKey))   pitchInput =  1f;
-            if (Input.GetKey(pitchDownKey)) pitchInput = -1f;
-            if (Input.GetKey(rollRightKey)) rollInput  =  1f;
-            if (Input.GetKey(rollLeftKey))  rollInput  = -1f;
-            if (Input.GetKey(yawRightKey))  yawInput   =  1f;
-            if (Input.GetKey(yawLeftKey))   yawInput   = -1f;
-
-            if (Input.GetKeyDown(brakeToggle))
-            {
-                brakesOn = !brakesOn;
-                airplane.leftWheel.brakeTorque  = brakesOn ? 5000f : airplane.rollingResistance;
-                airplane.rightWheel.brakeTorque = brakesOn ? 5000f : airplane.rollingResistance;
-                airplane.noseWheel.brakeTorque  = brakesOn ? 5000f : airplane.rollingResistance;
-            }
-
-            float flapTarget = Input.GetKey(flapsKey) ? 1f : 0f;
-            flaps = Mathf.Lerp(flaps, flapTarget, Time.deltaTime / 2f);
+            flapsDeployed = !flapsDeployed;
+            flapTarget = flapsDeployed ? 1f : 0f;
         }
+        flaps = Mathf.Lerp(flaps, flapTarget, Time.deltaTime * 2f);
 
+        // --- Clamp and apply ---
         throttle = Mathf.Clamp01(throttle);
         airplane.throttle = throttle;
 
-        // --- Send to Airfoils (same for both input methods) ---
+        // --- Send to Airfoils ---
         foreach (Airfoil airfoil in airplane.airfoils)
         {
             if (airfoil.airfoilType == AirfoilType.aileron)
@@ -111,10 +101,15 @@ public class PlayerInputManager : MonoBehaviour
                 airfoil.controlInput = rollInput * side;
                 airfoil.flapInput    = flaps;
             }
+            if (airfoil.airfoilType == AirfoilType.flap)
+                airfoil.flapInput = flaps;
             if (airfoil.airfoilType == AirfoilType.elevator)
                 airfoil.controlInput = pitchInput;
             if (airfoil.airfoilType == AirfoilType.rudder)
                 airfoil.controlInput = yawInput;
         }
+
+        // Must be at the very end of Update
+        firstFrame = false;
     }
 }

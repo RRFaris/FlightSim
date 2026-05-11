@@ -7,27 +7,27 @@ public class Airplane : MonoBehaviour
     public Engine engine;
 
     [Range(0, 1)] public float throttle;
-    
+
     [Header("Landing Gear")]
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
     public WheelCollider noseWheel;
     public float rollingResistance;
+    public bool brakesOn = false; // ADD THIS
 
     public Airfoil[] airfoils;
 
-    public float temperature = 288.15f;         // In Kelvin (59 degrees Fahrenheit)
-    public float specificGasConstant = 287.05f; // In J/(kg*K)
-    public int pressure = 101325;               // In pascals
-    
+    public float temperature = 288.15f;
+    public float specificGasConstant = 287.05f;
+    public int pressure = 101325;
+
     public float airDensity;
     public Vector3 localVelocity;
     public Vector3 velocity;
-    
-    public Vector3 aircraftBodyArea; // cross-sectional area in X, Y, Z directions
-    public Vector3 cbd;              // drag coefficient for each axis
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public Vector3 aircraftBodyArea;
+    public Vector3 cbd;
+
     void Start()
     {
         main.centerOfMass = main.transform.InverseTransformPoint(centerMassTransform.position);
@@ -35,10 +35,6 @@ public class Airplane : MonoBehaviour
         leftWheel.brakeTorque  = 0;
         rightWheel.brakeTorque = 0;
         noseWheel.brakeTorque  = 0;
-        
-        // SetWheelForwardFriction(leftWheel,  0.3f);
-        // SetWheelForwardFriction(rightWheel, 0.3f);
-        // SetWheelForwardFriction(noseWheel,  0.3f);
     }
 
     void ApplyBodyDrag()
@@ -57,47 +53,46 @@ public class Airplane : MonoBehaviour
         Vector3 drag = new Vector3(xDrag, yDrag, zDrag);
         main.AddForce(transform.TransformVector(drag));
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    // ADD THIS METHOD
+    void ApplyRollingResistance()
     {
-        
+        float brakeTorque = brakesOn ? 5000f : rollingResistance;
+        leftWheel.brakeTorque  = brakeTorque;
+        rightWheel.brakeTorque = brakeTorque;
+        noseWheel.brakeTorque  = brakeTorque;
     }
+
+    void Update() { }
 
     void FixedUpdate()
     {
         CalculateState();
         engine.ApplyThrust(throttle);
         ApplyBodyDrag();
-        
+        ApplyRollingResistance(); // ADD THIS
+
         float tinyTorque = 0.0001f;
         leftWheel.motorTorque = tinyTorque;
         rightWheel.motorTorque = tinyTorque;
         noseWheel.motorTorque = tinyTorque;
-        // noseWheel.brakeTorque = 0;
-        // rightWheel.brakeTorque = 0;
-        // leftWheel.brakeTorque = 0;
-        
+
         foreach (Airfoil airfoil in airfoils)
         {
             Vector3 wingWorldVelocity = main.GetPointVelocity(airfoil.transform.position);
             Vector3 wingLocalVelocity = airfoil.transform.InverseTransformDirection(wingWorldVelocity);
-            // airfoil.applyLift(main, airDensity, main.linearVelocity.normalized);
             airfoil.applyLift(main, airDensity, wingLocalVelocity);
         }
     }
 
     public void CalculateState()
     {
-        // Calculates plane's local velocity 
-        // Calculates the angle of attack
         var invRotation = Quaternion.Inverse(main.rotation);
         velocity = main.linearVelocity;
         localVelocity = invRotation * velocity;
         airDensity = CalculateAirDensity();
-
     }
-    
+
     public float CalculateAirDensity()
     {
         float airDensity = pressure / (specificGasConstant * temperature);
