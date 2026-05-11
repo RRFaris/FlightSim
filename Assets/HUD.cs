@@ -72,12 +72,12 @@ public class HUD : MonoBehaviour
         bool isStalling = (speedMPH < stallSpeed && radarAltFeet > 20f) ||
                           (pitch > 30f && speedMPH < stallSpeed * 1.5f && radarAltFeet > 20f);
 
-        hudText.text = $"THR:<pos=100>{throttlePercent:F0}  %\n" +
-                       $"SPD:<pos=100>{speedMPH:F0}  mph\n" +
-                       $"ALT:<pos=100>{altitudeFeet:F0}  ft\n" +
-                       $"RALT:<pos=100>{radarAltFeet:F0}  ft\n\n" +
-                       $"PITCH:<pos=100>{pitch:F1}°\n" +
-                       $"G:<pos=100>{gForce:F1}\n" +
+        hudText.text = $"THR<pos=115>{throttlePercent:F0} %\n" +
+                       $"SPD<pos=115>{speedMPH:F0} mph\n" +
+                       $"ALT<pos=115>{altitudeFeet:F0} ft\n" +
+                       $"RALT<pos=115>{radarAltFeet:F0} ft\n\n" +
+                       $"PITCH<pos=115>{pitch:F1}°\n" +
+                       $"G's<pos=115>{gForce:F1}\n" +
                        (isStalling ? "<color=red>!! STALL !!</color>" : "");
     }
 }
