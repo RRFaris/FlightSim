@@ -3,7 +3,17 @@ guid: ebd424f79a5da419f9bb994e2ba98ddf
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01___11804_Airplane_body
+    second: {fileID: 2100000, guid: 91cd7d05c39e34af0a92b331637d62db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02___11804_Airplane_glass
+    second: {fileID: 2100000, guid: 957d6ef477105474eb4f4bbc14ea1892, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
