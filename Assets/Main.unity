@@ -1934,6 +1934,7 @@ MonoBehaviour:
   rightWheel: {fileID: 1319212256}
   noseWheel: {fileID: 1507812460}
   rollingResistance: 0
+  brakesOn: 0
   airfoils:
   - {fileID: 1707754574}
   - {fileID: 2933535}
@@ -5490,6 +5491,7 @@ MonoBehaviour:
   yawRightKey: 101
   brakeToggle: 98
   flapsKey: 102
+  flapsJoystickButton: 334
 --- !u!4 &1105353053
 Transform:
   m_ObjectHideFlags: 0
@@ -7427,29 +7429,34 @@ MonoBehaviour:
   animations:
   - airfoil: {fileID: 397074731}
     model: {fileID: 909237819524732560}
-    maxAngle: 25
+    maxAngle: -25
     axis: 0
     smoothSpeed: 5
+    isFlapOnly: 0
   - airfoil: {fileID: 397074731}
     model: {fileID: 2018590587148164215}
-    maxAngle: 25
+    maxAngle: -25
     axis: 0
     smoothSpeed: 5
+    isFlapOnly: 0
   - airfoil: {fileID: 783772921}
     model: {fileID: 615743274044550288}
-    maxAngle: 20
+    maxAngle: -20
     axis: 0
     smoothSpeed: 5
+    isFlapOnly: 0
   - airfoil: {fileID: 222695418}
     model: {fileID: 1559302653718175771}
-    maxAngle: 20
+    maxAngle: -20
     axis: 0
     smoothSpeed: 5
+    isFlapOnly: 0
   - airfoil: {fileID: 1310953139}
     model: {fileID: 5937993207521851385}
-    maxAngle: 24
+    maxAngle: -24
     axis: 1
     smoothSpeed: 5
+    isFlapOnly: 0
 --- !u!4 &1414317361
 Transform:
   m_ObjectHideFlags: 0

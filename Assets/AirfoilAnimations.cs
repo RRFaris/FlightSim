@@ -16,6 +16,9 @@ public struct AirfoilAnimation
     
     [Tooltip("Smoothing speed - higher = snappier response")]
     public float smoothSpeed;
+
+    [Tooltip("Check this for pure flap surfaces that don't also act as ailerons")]
+    public bool isFlapOnly;
 }
 
 public class AirfoilAnimations : MonoBehaviour
@@ -28,13 +31,17 @@ public class AirfoilAnimations : MonoBehaviour
         {
             if (animation.model == null || animation.airfoil == null) continue;
 
-            // Combine control input and flap input for flaperons
-            float totalInput = animation.airfoil.controlInput + animation.airfoil.flapInput;
+            // Pure flap surfaces only use flapInput
+            // Flaperons combine both
+            float totalInput;
+            if (animation.isFlapOnly)
+                totalInput = animation.airfoil.flapInput;
+            else
+                totalInput = animation.airfoil.controlInput + animation.airfoil.flapInput;
+
             float targetAngle = animation.maxAngle * Mathf.Clamp(totalInput, -1f, 1f);
 
             Vector3 currentAngles = animation.model.transform.localEulerAngles;
-            
-            // Convert current angle to -180/180 range for correct lerping
             float currentAngle = 0f;
             float newAngle = 0f;
 
