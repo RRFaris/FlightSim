@@ -14,6 +14,7 @@ public class Airplane : MonoBehaviour
     public WheelCollider noseWheel;
     public float rollingResistance;
     public bool brakesOn = false; // ADD THIS
+    public bool flapsDeployed = false; // Added by the oliver
 
     public Airfoil[] airfoils;
 
