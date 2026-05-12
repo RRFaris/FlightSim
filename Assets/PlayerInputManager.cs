@@ -20,7 +20,6 @@ public class PlayerInputManager : MonoBehaviour
     [Header("Other")]
     public KeyCode brakeToggle         = KeyCode.B;
     public KeyCode flapsKey            = KeyCode.F;
-    public KeyCode flapsJoystickButton = KeyCode.JoystickButton4;
 
     private float throttle      = 0f;
     private float flaps         = 0f;
@@ -81,9 +80,10 @@ public class PlayerInputManager : MonoBehaviour
             airplane.brakesOn = !airplane.brakesOn;
 
         // --- Flaps toggle (always works) ---
-        if (Input.GetKeyDown(flapsKey) || Input.GetKeyDown(flapsJoystickButton))
+        if (Input.GetKeyDown(flapsKey) || Input.GetKeyDown(KeyCode.JoystickButton1)) 
         {
             flapsDeployed = !flapsDeployed;
+            airplane.flapsDeployed = flapsDeployed;
             flapTarget = flapsDeployed ? 1f : 0f;
         }
         flaps = Mathf.Lerp(flaps, flapTarget, Time.deltaTime * 2f);
